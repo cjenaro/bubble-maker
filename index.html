@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Bubble Maker!</title>
+  </head>
+  <body>
+    <style>
+      :root {
+        --top-left-0-1: 50%;
+        --top-left-0-2: 50%;
+        --top-right-0-1: 50%;
+        --top-right-0-2: 50%;
+        --bottom-right-0-1: 50%;
+        --bottom-right-0-2: 50%;
+        --bottom-left-0-1: 50%;
+        --bottom-left-0-2: 50%;
+        --top-left-20-1: 50%;
+        --top-left-20-2: 50%;
+        --top-right-20-1: 50%;
+        --top-right-20-2: 50%;
+        --bottom-right-20-1: 50%;
+        --bottom-right-20-2: 50%;
+        --bottom-left-20-1: 50%;
+        --bottom-left-20-2: 50%;
+        --top-left-40-1: 50%;
+        --top-left-40-2: 50%;
+        --top-right-40-1: 50%;
+        --top-right-40-2: 50%;
+        --bottom-right-40-1: 50%;
+        --bottom-right-40-2: 50%;
+        --bottom-left-40-1: 50%;
+        --bottom-left-40-2: 50%;
+        --top-left-60-1: 50%;
+        --top-left-60-2: 50%;
+        --top-right-60-1: 50%;
+        --top-right-60-2: 50%;
+        --bottom-right-60-1: 50%;
+        --bottom-right-60-2: 50%;
+        --bottom-left-60-1: 50%;
+        --bottom-left-60-2: 50%;
+        --top-left-80-1: 50%;
+        --top-left-80-2: 50%;
+        --top-right-80-1: 50%;
+        --top-right-80-2: 50%;
+        --bottom-right-80-1: 50%;
+        --bottom-right-80-2: 50%;
+        --bottom-left-80-1: 50%;
+        --bottom-left-80-2: 50%;
+      }
+
+      @keyframes bubble {
+        0% {
+          border-top-left-radius: var(--top-left-0-1) var(--top-left-0-2);
+          border-top-right-radius: var(--top-right-0-1) var(--top-right-0-2);
+          border-bottom-right-radius: var(--bottom-right-0-1) var(--bottom-right-0-2);
+          border-bottom-left-radius: var(--bottom-left-0-1) var(--bottom-left-0-2);
+        }
+        20% {
+          border-top-left-radius: var(--top-left-20-1) var(--top-left-20-2);
+          border-top-right-radius: var(--top-right-20-1) var(--top-right-20-2);
+          border-bottom-right-radius: var(--bottom-right-20-1) var(--bottom-right-20-2);
+          border-bottom-left-radius: var(--bottom-left-20-1) var(--bottom-left-20-2);
+        }
+        40% {
+          border-top-left-radius: var(--top-left-40-1) var(--top-left-40-2);
+          border-top-right-radius: var(--top-right-40-1) var(--top-right-40-2);
+          border-bottom-right-radius: var(--bottom-right-40-1) var(--bottom-right-40-2);
+          border-bottom-left-radius: var(--bottom-left-40-1) var(--bottom-left-40-2);
+        }
+        60% {
+          border-top-left-radius: var(--top-left-60-1) var(--top-left-60-2);
+          border-top-right-radius: var(--top-right-60-1) var(--top-right-60-2);
+          border-bottom-right-radius: var(--bottom-right-60-1) var(--bottom-right-60-2);
+          border-bottom-left-radius: var(--bottom-left-60-1) var(--bottom-left-60-2);
+        }
+        80% {
+          border-top-left-radius: var(--top-left-80-1) var(--top-left-80-2);
+          border-top-right-radius: var(--top-right-80-1) var(--top-right-80-2);
+          border-bottom-right-radius: var(--bottom-right-80-1) var(--bottom-right-80-2);
+          border-bottom-left-radius: var(--bottom-left-80-1) var(--bottom-left-80-2);
+        }
+        100% {
+          border-top-left-radius: var(--top-left-0-1) var(--top-left-0-2);
+          border-top-right-radius: var(--top-right-0-1) var(--top-right-0-2);
+          border-bottom-right-radius: var(--bottom-right-0-1) var(--bottom-right-0-2);
+          border-bottom-left-radius: var(--bottom-left-0-1) var(--bottom-left-0-2);
+        }
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        width: 100vw;
+      }
+
+      body {
+        background-color: #40739e;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding-left: 30px;
+      }
+
+      .bubble-inputs-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .inputs {
+        display: flex;
+        width: 700px;
+        flex-wrap: wrap;
+      }
+
+      .inputs>* {
+        display: flex;
+        width: 180px;
+        flex-wrap: wrap;
+        margin: 0 20px;
+      }
+      
+      .inputs>*>p {
+        width: 100%;
+      }
+      
+      .inputs>*>span {
+        margin-left: auto;
+        width: 30px;
+      }
+
+      .bubble {
+        background-color: #ffffff;
+        height: 200px;
+        width: 200px;
+        animation: bubble 3s linear infinite;
+      }
+
+      .code {
+        position: absolute;
+        bottom: 15px;
+        right: 15px;
+        background-color: rgba(0,0,0, .6);
+        color: rgb(216, 240, 136);
+        padding: 15px;
+        border-radius: 10px;
+        font-family: monospace;
+      }
+    </style>
+
+    <div class="bubble-inputs-container">
+      <div class="inputs">
+        <div>
+          <p>0/100 %</p>
+          <label for="--top-right-0">top right</label>
+          <span class="--top-right-0-2">50</span>
+          <span class="--top-right-0-1">50</span>
+          <input
+            type="range"
+            value="50"
+            min="0"
+            max="100"
+            name="--top-right-0-2"
+            id="--top-right-0-2"
+          />
+          <input
+            type="range"
+            value="50"
+            min="0"
+            max="100"
+            name="--top-right-0-1"
+            id="--top-right-0-1"
+          />
+          <label for="--top-left-0">top left</label>
+          <span class="--top-left-0-2">50</span>
+          <span class="--top-left-0-1">50</span>
+          <input
+            type="range"
+            value="50"
+            min="0"
+            max="100"
+            name="--top-left-0-2"
+            id="--top-left-0-2"
+          />
+          <input
+            type="range"
+            value="50"
+            min="0"
+            max="100"
+            name="--top-left-0-1"
+            id="--top-left-0-1"
+          />
+          <label for="--bottom-right-0">bottom right</label>
+          <span class="--bottom-right-0-2">50</span>
+          <span class="--bottom-right-0-1">50</span>
+          <input
+            type="range"
+            value="50"
+            min="0"
+            max="100"
+            name="--bottom-right-0-2"
+            id="--bottom-right-0-2"
+          />
+          <input
+            type="range"
+            value="50"
+            min="0"
+            max="100"
+            name="--bottom-right-0-1"
+            id="--bottom-right-0-1"
+          />
+          <label for="--bottom-left-0">bottom left</label>
+          <span class="--bottom-left-0-2">50</span>
+          <span class="--bottom-left-0-1">50</span>
+          <input
+            type="range"
+            value="50"
+            min="0"
+            max="100"
+            name="--bottom-left-0-2"
+            id="--bottom-left-0-2"
+          />
+          <input
+            type="range"
+            value="50"
+            min="0"
+            max="100"
+            name="--bottom-left-0-1"
+            id="--bottom-left-0-1"
+          />
+        </div>
+
+        <div>
+          <p>20%</p>
+          <label for="--top-right-20">top right</label>
+          <span class="--top-right-20-2">50</span>
+          <span class="--top-right-20-1">50</span>
+          <input
+            type="range"
+            value="50"
+            min="0"
+            max="100"
+            name="--top-right-20-2"
+            id="--top-right-20-2"
+          />
+          <input
+            type="range"
+            value="50"
+            min="0"
+            max="100"
+            name="--top-right-20-1"
+            id="--top-right-20-1"
+          />
+          <label for="--top-left-20">top left</label>
+          <span class="--top-left-20-2">50</span>
+          <span class="--top-left-20-1">50</span>
+          <input
+            type="range"
+            value="50"
+            min="0"
+            max="100"
+            name="--top-left-20-2"
+            id="--top-left-20-2"
+          />
+          <input
+            type="range"
+            value="50"
+            min="0"
+            max="100"
+            name="--top-left-20-1"
+            id="--top-left-20-1"
+          />
+          <label for="--bottom-right-20">bottom right</label>
+          <span class="--bottom-right-20-2">50</span>
+          <span class="--bottom-right-20-1">50</span>
+          <input
+            type="range"
+            value="50"
+            min="0"
+            max="100"
+            name="--bottom-right-20-2"
+            id="--bottom-right-20-2"
+          />
+          <input
+            type="range"
+            value="50"
+            min="0"
+            max="100"
+            name="--bottom-right-20-1"
+            id="--bottom-right-20-1"
+          />
+          <label for="--bottom-left-20">bottom left</label>
+          <span class="--bottom-left-20-2">50</span>
+          <span class="--bottom-left-20-1">50</span>
+          <input
+            type="range"
+            value="50"
+            min="0"
+            max="100"
+            name="--bottom-left-20-2"
+            id="--bottom-left-20-2"
+          />
+          <input
+            type="range"
+            value="50"
+            min="0"
+            max="100"
+            name="--bottom-left-20-1"
+            id="--bottom-left-20-1"
+          />
+        </div>
+
+        <div>
+          <p>40%</p>
+          <label for="--top-right-40">top right</label>
+          <span class="--top-right-40-2">50</span>
+          <span class="--top-right-40-1">50</span>
+          <input
+            type="range"
+            value="50"
+            min="0"
+            max="100"
+            name="--top-right-40-2"
+            id="--top-right-40-2"
+          />
+          <input
+            type="range"
+            value="50"
+            min="0"
+            max="100"
+            name="--top-right-40-1"
+            id="--top-right-40-1"
+          />
+          <label for="--top-left-40">top left</label>
+          <span class="--top-left-40-2">50</span>
+          <span class="--top-left-40-1">50</span>
+          <input
+            type="range"
+            value="50"
+            min="0"
+            max="100"
+            name="--top-left-40-2"
+            id="--top-left-40-2"
+          />
+          <input
+            type="range"
+            value="50"
+            min="0"
+            max="100"
+            name="--top-left-40-1"
+            id="--top-left-40-1"
+          />
+          <label for="--bottom-right-40">bottom right</label>
+          <span class="--bottom-right-40-2">50</span>
+          <span class="--bottom-right-40-1">50</span>
+          <input
+            type="range"
+            value="50"
+            min="0"
+            max="100"
+            name="--bottom-right-40-2"
+            id="--bottom-right-40-2"
+          />
+          <input
+            type="range"
+            value="50"
+            min="0"
+            max="100"
+            name="--bottom-right-40-1"
+            id="--bottom-right-40-1"
+          />
+          <label for="--bottom-left-40">bottom left</label>
+          <span class="--bottom-left-40-2">50</span>
+          <span class="--bottom-left-40-1">50</span>
+          <input
+            type="range"
+            value="50"
+            min="0"
+            max="100"
+            name="--bottom-left-40-2"
+            id="--bottom-left-40-2"
+          />
+          <input
+            type="range"
+            value="50"
+            min="0"
+            max="100"
+            name="--bottom-left-40-1"
+            id="--bottom-left-40-1"
+          />
+        </div>
+
+        <div>
+          <p>60%</p>
+          <label for="--top-right-60">top right</label>
+          <span class="--top-right-60-2">50</span>
+          <span class="--top-right-60-1">50</span>
+          <input
+            type="range"
+            value="50"
+            min="0"
+            max="100"
+            name="--top-right-60-2"
+            id="--top-right-60-2"
+          />
+          <input
+            type="range"
+            value="50"
+            min="0"
+            max="100"
+            name="--top-right-60-1"
+            id="--top-right-60-1"
+          />
+          <label for="--top-left-60">top left</label>
+          <span class="--top-left-60-2">50</span>
+          <span class="--top-left-60-1">50</span>
+          <input
+            type="range"
+            value="50"
+            min="0"
+            max="100"
+            name="--top-left-60-2"
+            id="--top-left-60-2"
+          />
+          <input
+            type="range"
+            value="50"
+            min="0"
+            max="100"
+            name="--top-left-60-1"
+            id="--top-left-60-1"
+          />
+          <label for="--bottom-right-60">bottom right</label>
+          <span class="--bottom-right-60-2">50</span>
+          <span class="--bottom-right-60-1">50</span>
+          <input
+            type="range"
+            value="50"
+            min="0"
+            max="100"
+            name="--bottom-right-60-2"
+            id="--bottom-right-60-2"
+          />
+          <input
+            type="range"
+            value="50"
+            min="0"
+            max="100"
+            name="--bottom-right-60-1"
+            id="--bottom-right-60-1"
+          />
+          <label for="--bottom-left-60">bottom left</label>
+          <span class="--bottom-left-60-2">50</span>
+          <span class="--bottom-left-60-1">50</span>
+          <input
+            type="range"
+            value="50"
+            min="0"
+            max="100"
+            name="--bottom-left-60-2"
+            id="--bottom-left-60-2"
+          />
+          <input
+            type="range"
+            value="50"
+            min="0"
+            max="100"
+            name="--bottom-left-60-1"
+            id="--bottom-left-60-1"
+          />
+        </div>
+
+        <div>
+          <p>80%</p>
+          <label for="--top-right-80">top right</label>
+          <span class="--top-right-80-2">50</span>
+          <span class="--top-right-80-1">50</span>
+          <input
+            type="range"
+            value="50"
+            min="0"
+            max="100"
+            name="--top-right-80-2"
+            id="--top-right-80-2"
+          />
+          <input
+            type="range"
+            value="50"
+            min="0"
+            max="100"
+            name="--top-right-80-1"
+            id="--top-right-80-1"
+          />
+          <label for="--top-left-80">top left</label>
+          <span class="--top-left-80-2">50</span>
+          <span class="--top-left-80-1">50</span>
+          <input
+            type="range"
+            value="50"
+            min="0"
+            max="100"
+            name="--top-left-80-2"
+            id="--top-left-80-2"
+          />
+          <input
+            type="range"
+            value="50"
+            min="0"
+            max="100"
+            name="--top-left-80-1"
+            id="--top-left-80-1"
+          />
+          <label for="--bottom-right-80">bottom right</label>
+          <span class="--bottom-right-80-2">50</span>
+          <span class="--bottom-right-80-1">50</span>
+          <input
+            type="range"
+            value="50"
+            min="0"
+            max="100"
+            name="--bottom-right-80-2"
+            id="--bottom-right-80-2"
+          />
+          <input
+            type="range"
+            value="50"
+            min="0"
+            max="100"
+            name="--bottom-right-80-1"
+            id="--bottom-right-80-1"
+          />
+          <label for="--bottom-left-80">bottom left</label>
+          <span class="--bottom-left-80-2">50</span>
+          <span class="--bottom-left-80-1">50</span>
+          <input
+            type="range"
+            value="50"
+            min="0"
+            max="100"
+            name="--bottom-left-80-2"
+            id="--bottom-left-80-2"
+          />
+          <input
+            type="range"
+            value="50"
+            min="0"
+            max="100"
+            name="--bottom-left-80-1"
+            id="--bottom-left-80-1"
+          />
+        </div>
+      </div>
+
+      <div class="bubble"></div>
+
+      <div class="code">
+          @keyframes bubble {<br>
+            &nbsp;&nbsp;0% {<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;border-top-left-radius: <span class="--top-left-0-2">50%</span> <span class="--top-left-0-1">50%</span>;<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;border-top-right-radius: <span class="--top-right-0-2">50%</span> <span class="--top-right-0-1">50%</span>;<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;border-bottom-right-radius: <span class="--bottom-right-0-2">50%</span> <span class="--bottom-right-0-1">50%</span>;<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;border-bottom-left-radius: <span class="--bottom-left-0-2">50%</span> <span class="--bottom-left-0-1">50%</span>;<br>
+              &nbsp;&nbsp;}<br>
+            &nbsp;&nbsp;20% {<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;border-top-left-radius: <span class="--top-left-20-2">50%</span> <span class="--top-left-20-1">50%</span>;<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;border-top-right-radius: <span class="--top-right-20-2">50%</span> <span class="--top-right-20-1">50%</span>;<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;border-bottom-right-radius: <span class="--bottom-right-20-2">50%</span> <span class="--bottom-right-20-1">50%</span>;<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;border-bottom-left-radius: <span class="--bottom-left-20-2">50%</span> <span class="--bottom-left-20-1">50%</span>;<br>
+              &nbsp;&nbsp;}<br>
+            &nbsp;&nbsp;40% {<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;border-top-left-radius: <span class="--top-left-40-2">50%</span> <span class="--top-left-40-1">50%</span>;<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;border-top-right-radius: <span class="--top-right-40-2">50%</span> <span class="--top-right-40-1">50%</span>;<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;border-bottom-right-radius: <span class="--bottom-right-40-2">50%</span> <span class="--bottom-right-40-1">50%</span>;<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;border-bottom-left-radius: <span class="--bottom-left-40-2">50%</span> <span class="--bottom-left-40-1">50%</span>;<br>
+              &nbsp;&nbsp;}<br>
+            &nbsp;&nbsp;60% {<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;border-top-left-radius: <span class="--top-left-60-2">50%</span> <span class="--top-left-60-1">50%</span>;<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;border-top-right-radius: <span class="--top-right-60-2">50%</span> <span class="--top-right-60-1">50%</span>;<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;border-bottom-right-radius: <span class="--bottom-right-60-2">50%</span> <span class="--bottom-right-60-1">50%</span>;<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;border-bottom-left-radius: <span class="--bottom-left-60-2">50%</span> <span class="--bottom-left-60-1">50%</span>;<br>
+              &nbsp;&nbsp;}<br>
+            &nbsp;&nbsp;80% {<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;border-top-left-radius: <span class="--top-left-80-2">50%</span> <span class="--top-left-80-1">50%</span>;<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;border-top-right-radius: <span class="--top-right-80-2">50%</span> <span class="--top-right-80-1">50%</span>;<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;border-bottom-right-radius: <span class="--bottom-right-80-2">50%</span> <span class="--bottom-right-80-1">50%</span>;<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;border-bottom-left-radius: <span class="--bottom-left-80-2">50%</span> <span class="--bottom-left-80-1">50%</span>;<br>
+              &nbsp;&nbsp;}<br>
+            &nbsp;&nbsp;100% {<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;border-top-left-radius: <span class="--top-left-0-2">50%</span> <span class="--top-left-0-1">50%</span>;<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;border-top-right-radius: <span class="--top-right-0-2">50%</span> <span class="--top-right-0-1">50%</span>;<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;border-bottom-right-radius: <span class="--bottom-right-0-2">50%</span> <span class="--bottom-right-0-1">50%</span>;<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;border-bottom-left-radius: <span class="--bottom-left-0-2">50%</span> <span class="--bottom-left-0-1">50%</span>;<br>
+              &nbsp;&nbsp;}<br>
+          }<br>
+      </div>
+    </div>
+    <script>
+      const inputs = document.querySelectorAll('input')
+
+      function handleInputChange(e) {
+        document.querySelectorAll(`span.${this.id}`).forEach(span => span.innerHTML = `${this.value}%`)
+        const bubble = document.querySelector('.bubble')
+        bubble.style.setProperty(this.id, `${this.value}%`)
+      }
+
+      inputs.forEach(input => {
+        input.addEventListener('change', handleInputChange)
+      })
+    </script>
+  </body>
+</html>
